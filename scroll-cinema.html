@@ -17,31 +17,29 @@
 html { font-size: 16px; }
 body {
   font-family: 'IBM Plex Sans', sans-serif;
-  background: #000;
-  color: #F0E6D2;
-  line-height: 1.6;
-  overflow-x: hidden;
+  background: #000; color: #F0E6D2;
+  line-height: 1.6; overflow-x: hidden;
 }
 
 /* ── Fixed Layers ── */
 .mjm-grain {
   position: fixed; inset: 0; pointer-events: none; z-index: 15;
-  opacity: 0.03; mix-blend-mode: overlay;
+  opacity: 0.025; mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat; background-size: 256px 256px;
 }
 .mjm-scanlines {
   position: fixed; inset: 0; pointer-events: none; z-index: 14;
-  background: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255,255,255,0.02) 1px, rgba(255,255,255,0.02) 3px);
+  background: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255,255,255,0.015) 1px, rgba(255,255,255,0.015) 3px);
 }
 .video-vignette {
   position: fixed; inset: 0; z-index: 11; pointer-events: none;
-  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.6) 100%);
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.45) 100%);
 }
 
 /* ── Video ── */
 .video-wrapper {
-  position: fixed; inset: 0; z-index: 1; background: #000; overflow: hidden;
+  position: fixed; inset: 0; z-index: 1; background: #0a0806; overflow: hidden;
 }
 #scrollVideo {
   width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s ease;
@@ -58,112 +56,76 @@ body {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; justify-content: space-between; align-items: center;
   padding: 1rem clamp(1.5rem, 4vw, 3rem);
-  background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, transparent 100%);
   pointer-events: none;
 }
 .mjm-nav > * { pointer-events: auto; }
 .mjm-nav-logo {
   font-family: 'Anton', sans-serif; font-size: 1.3rem;
-  letter-spacing: 0.04em; color: #F0E6D2; text-decoration: none; opacity: 0.8;
+  letter-spacing: 0.04em; color: #F0E6D2; text-decoration: none; opacity: 0.7;
 }
 .mjm-nav-links {
   display: flex; gap: 1.5rem; list-style: none;
   font-family: 'Rajdhani', sans-serif; font-weight: 600;
   font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
 }
-.mjm-nav-links a { color: #F0E6D2; text-decoration: none; opacity: 0.5; transition: opacity 0.3s; }
-.mjm-nav-links a:hover { opacity: 0.9; }
+.mjm-nav-links a { color: #F0E6D2; text-decoration: none; opacity: 0.4; transition: opacity 0.3s; }
+.mjm-nav-links a:hover { opacity: 0.8; }
 
 /* ── Progress ── */
 .scroll-progress {
-  position: fixed; bottom: 0; left: 0; height: 3px;
-  background: #1F8A8E; z-index: 100; width: 0%;
-  box-shadow: 0 0 8px rgba(31,138,142,0.3);
-}
-.scroll-percent {
-  position: fixed; bottom: 0.7rem; right: 1.5rem; z-index: 100;
-  font-family: 'Rajdhani', sans-serif; font-size: 0.7rem;
-  letter-spacing: 0.15em; color: #F0E6D2; opacity: 0.35;
+  position: fixed; bottom: 0; left: 0; height: 2px;
+  background: rgba(31,138,142,0.6); z-index: 100; width: 0%;
 }
 
-/* ── Scene Indicator ── */
-.scene-indicator {
-  position: fixed; bottom: 2.5rem; left: 1.5rem; z-index: 100;
-  font-family: 'Rajdhani', sans-serif; font-size: 0.65rem;
-  letter-spacing: 0.2em; text-transform: uppercase; color: #F0E6D2; opacity: 0.25;
-  transition: opacity 0.4s ease;
-}
-
-/* ── Scroll Spacers (trigger zones) ── */
-.scroll-zone {
-  position: relative; z-index: 10; pointer-events: none;
-}
-.zone-full { height: 100vh; }
-.zone-tall { height: 130vh; }
-.zone-short { height: 60vh; }
-.zone-micro { height: 30vh; }
-
-/* ── Overlay System ── */
+/* ── Overlays ── */
 .overlay {
-  position: fixed;
-  z-index: 12;
-  pointer-events: none;
-  max-width: 560px;
-  padding: 2rem;
-  opacity: 0;
-  transition: none; /* controlled by JS */
-}
-
-.overlay-left {
-  left: clamp(1.5rem, 5vw, 4rem);
-  top: 50%;
-  transform: translateY(-50%);
-  text-align: left;
-}
-
-.overlay-right {
-  right: clamp(1.5rem, 5vw, 4rem);
-  top: 50%;
-  transform: translateY(-50%);
-  text-align: right;
+  position: fixed; z-index: 12; pointer-events: none;
+  opacity: 0; transition: none;
 }
 
 .overlay-center {
-  left: 50%;
-  top: 50%;
+  left: 50%; top: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  max-width: 600px;
+  padding: 2rem;
+}
+
+.overlay-bottom-left {
+  left: clamp(1.5rem, 5vw, 4rem);
+  bottom: clamp(2rem, 6vh, 4rem);
+  text-align: left;
+  max-width: 440px;
 }
 
 .overlay-badge {
   font-family: 'Rajdhani', sans-serif; font-weight: 700;
   font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
-  color: #1F8A8E; opacity: 0.7; margin-bottom: 0.5rem;
+  color: #1F8A8E; opacity: 0.6; margin-bottom: 0.5rem;
 }
 
 .overlay-signal {
-  width: 50px; height: 2px; background: #1F8A8E; margin: 0 0 1rem;
-  box-shadow: 0 0 10px rgba(31,138,142,0.3);
+  width: 40px; height: 2px; background: #1F8A8E;
+  box-shadow: 0 0 8px rgba(31,138,142,0.2);
 }
-.overlay-right .overlay-signal { margin-left: auto; }
 .overlay-center .overlay-signal { margin: 0 auto 1rem; }
 
 .overlay-title {
   font-family: 'Anton', sans-serif;
   font-size: clamp(2.2rem, 5.5vw, 4.5rem);
   line-height: 1; letter-spacing: -0.02em; text-transform: uppercase;
-  color: #F0E6D2; text-shadow: 0 2px 30px rgba(0,0,0,0.6);
+  color: #F0E6D2; text-shadow: 0 2px 30px rgba(0,0,0,0.5);
   margin-bottom: 0.7rem;
 }
 
 .overlay-sub {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(0.85rem, 1.3vw, 1.05rem);
-  font-weight: 300; color: #F0E6D2; opacity: 0.7;
-  max-width: 26rem; text-shadow: 0 1px 15px rgba(0,0,0,0.5);
-  margin-bottom: 1.2rem;
+  font-size: clamp(0.8rem, 1.2vw, 1rem);
+  font-weight: 300; color: #F0E6D2; opacity: 0.65;
+  max-width: 24rem; text-shadow: 0 1px 15px rgba(0,0,0,0.4);
+  margin-bottom: 1rem;
 }
-.overlay-right .overlay-sub { margin-left: auto; }
 .overlay-center .overlay-sub { margin: 0 auto; }
 
 .overlay-stamp {
@@ -175,42 +137,49 @@ body {
   text-shadow: 0 1px 6px rgba(0,0,0,0.3);
 }
 
-/* ── Transition Zone Label ── */
+/* ── Transition label ── */
 .transition-label {
-  position: fixed;
-  z-index: 13;
+  position: fixed; z-index: 13;
   left: 50%; top: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: none;
+  opacity: 0; pointer-events: none;
 }
 .transition-label .arch {
   font-family: 'Anton', sans-serif;
-  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-size: clamp(1.8rem, 4.5vw, 3.5rem);
   letter-spacing: 0.08em; text-transform: uppercase;
-  color: #F0E6D2; text-shadow: 0 0 40px rgba(31,138,142,0.3);
+  color: #F0E6D2; text-shadow: 0 0 50px rgba(31,138,142,0.25);
 }
 .transition-label .sub {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase;
+  font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase;
   color: #1F8A8E; margin-top: 0.3rem;
 }
+
+/* ── Scene indicator ── */
+.scene-indicator {
+  position: fixed; bottom: 2.5rem; left: 1.5rem; z-index: 100;
+  font-family: 'Rajdhani', sans-serif; font-size: 0.6rem;
+  letter-spacing: 0.2em; text-transform: uppercase; color: #F0E6D2; opacity: 0.2;
+  transition: opacity 0.4s ease;
+}
+
+/* ── Scroll spacers ── */
+.scroll-zone { position: relative; z-index: 10; pointer-events: none; }
+.zone-full { height: 100vh; }
+.zone-tall { height: 120vh; }
+.zone-short { height: 50vh; }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .mjm-nav-links { display: none; }
-  .overlay-title { font-size: clamp(1.8rem, 7vw, 2.5rem); }
+  .overlay-title { font-size: clamp(1.6rem, 7vw, 2.5rem); }
   .overlay { max-width: 90%; padding: 1.2rem; }
-  .overlay-left { left: 1rem; }
-  .overlay-right { right: 1rem; text-align: left; }
-  .overlay-right .overlay-signal { margin-left: 0; }
-  .scroll-percent { display: none; }
+  .overlay-bottom-left { left: 1rem; bottom: 1.5rem; }
   .scene-indicator { display: none; }
 }
 
-/* ── Reduced Motion ── */
 @media (prefers-reduced-motion: reduce) {
   .overlay { opacity: 1 !important; }
   .transition-label { opacity: 0 !important; }
@@ -235,144 +204,92 @@ body {
 </nav>
 
 <div class="scroll-progress" id="scrollProgress"></div>
-<div class="scroll-percent" id="scrollPercent">00%</div>
-<div class="scene-indicator" id="sceneIndicator">OUTDOOR MARKET</div>
+<div class="scene-indicator" id="sceneIndicator">GOLDEN HOUR</div>
 
 <!-- ═══ VIDEO ═══ -->
 <div class="video-wrapper">
   <img class="video-poster" id="videoPoster"
-    src="../Design/Lanes/MJM/Mockups/scroll-source-kemetopolis-market.png" alt="">
-  <video id="scrollVideo" preload="auto" muted playsinline loop>
-    <source src="" id="videoSource" type="video/mp4">
+    src="../Design/Lanes/MJM/Mockups/scroll-baobab-day.png" alt="">
+  <video id="scrollVideo" preload="auto" muted playsinline loop
+    poster="../Design/Lanes/MJM/Mockups/scroll-baobab-day.png">
+    <source src="scroll-baobab.mp4" type="video/mp4">
   </video>
 </div>
 
-<!-- ═══ TRANSITION LABEL (appears during crossfade) ═══ -->
-<div class="transition-label" id="transitionLabel">
-  <div class="arch">PASSAGE</div>
-  <div class="sub">market to archive</div>
-</div>
+<!-- ═══ OVERLAYS ═══ -->
 
-<!-- ═══ OVERLAYS (fixed position, opacity controlled by JS) ═══ -->
-
-<!-- Layer 1: ARRIVAL (0-22%) -->
-<div class="overlay overlay-left" id="overlay0">
-  <div class="overlay-badge">01 / ARRIVAL</div>
+<!-- Arrival: Day -->
+<div class="overlay overlay-bottom-left" id="overlayDay">
+  <div class="overlay-badge">01 / DAYLIGHT</div>
   <div class="overlay-signal"></div>
-  <div class="overlay-title">WE DREAM<br>IN PUBLIC</div>
+  <div class="overlay-title">THE TREE<br>REMEMBERS</div>
   <div class="overlay-sub">
-    A multimedia studio building Black futures
-    from memory, myth, satire, and machine light.
-  </div>
-  <span class="overlay-stamp">DREAMED IN PUBLIC</span>
-</div>
-
-<!-- Layer 2: MARKET (18-42%) -->
-<div class="overlay overlay-right" id="overlay1">
-  <div class="overlay-badge">02 / THE MARKET</div>
-  <div class="overlay-signal"></div>
-  <div class="overlay-title">A CITY THAT<br>REMEMBERS</div>
-  <div class="overlay-sub">
-    Every stall, stone, and signal line carries
-    the mark of who built it. Ancient infrastructure
-    running new code. The past is not erased.
+    A single baobab stands as it has for centuries.
+    Rooted. Patient. Witness to everything.
   </div>
   <span class="overlay-stamp">FIELD RECORD</span>
 </div>
 
-<!-- Layer 3: ARCHIVE (50-78%) -->
-<div class="overlay overlay-left" id="overlay2">
-  <div class="overlay-badge">03 / THE ARCHIVE</div>
-  <div class="overlay-signal"></div>
-  <div class="overlay-title">MEMORY IS<br>SIGNAL</div>
-  <div class="overlay-sub">
-    Recovered documents, field records, and
-    transmissions. The archive is not a building.
-    It is a practice. A refusal against erasure.
+<!-- Transition label appears mid-scroll -->
+<div class="transition-label" id="transitionLabel">
+  <div class="arch">PASSAGE</div>
+  <div class="sub">day to night</div>
+</div>
+
+<!-- Arrival: Night -->
+<div class="overlay overlay-center" id="overlayNight">
+  <div class="overlay-badge">02 / NIGHT SIGNAL</div>
+  <div class="overlay-signal" style="margin:0 auto 1rem;"></div>
+  <div class="overlay-title">THE ROOTS<br>ARE LIVE</div>
+  <div class="overlay-sub" style="margin:0 auto;">
+    When the sun falls, the tree speaks in light.
+    Bioluminescent circuits older than any city.
+    The signal was always in the soil.
   </div>
   <span class="overlay-stamp">SIGNAL VERIFIED</span>
 </div>
 
-<!-- Layer 4: SIGNAL (78-100%) -->
-<div class="overlay overlay-center" id="overlay3">
-  <div class="overlay-badge">04 / THE SIGNAL</div>
-  <div class="overlay-signal" style="margin:0 auto 1rem;"></div>
-  <div class="overlay-title">TUNE IN.<br>DREAM OUT.</div>
-  <div class="overlay-sub" style="margin:0 auto;">
-    The archive is never complete.
-    New signals arrive daily.
-    Enter the network. Build with us.
-  </div>
-  <span class="overlay-stamp">DREAMED IN PUBLIC + MJM</span>
-</div>
-
-<!-- ═══ SCROLL ZONES (spacers that determine scroll distance) ═══ -->
-<div class="scroll-zone zone-full"></div>   <!-- 0-100vh: ARRIVAL zone -->
-<div class="scroll-zone zone-tall"></div>   <!-- 100-230vh: MARKET zone -->
-<div class="scroll-zone zone-short"></div>  <!-- 230-290vh: TRANSITION zone -->
-<div class="scroll-zone zone-tall"></div>   <!-- 290-420vh: ARCHIVE zone -->
-<div class="scroll-zone zone-full"></div>   <!-- 420-520vh: SIGNAL zone -->
-<div class="scroll-zone zone-short"></div>  <!-- 520-580vh: extra scroll space -->
+<!-- ═══ SCROLL ZONES ═══ -->
+<div class="scroll-zone zone-full"></div>   <!-- 0-100vh: DAY -->
+<div class="scroll-zone zone-tall"></div>   <!-- 100-220vh: TRANSITION -->
+<div class="scroll-zone zone-full"></div>   <!-- 220-320vh: NIGHT -->
+<div class="scroll-zone zone-short"></div>  <!-- 320-370vh: extra -->
 
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
 const video = document.getElementById('scrollVideo');
-const videoSrc = document.getElementById('videoSource');
 const poster = document.getElementById('videoPoster');
 const progressBar = document.getElementById('scrollProgress');
-const percentLabel = document.getElementById('scrollPercent');
 const sceneLabel = document.getElementById('sceneIndicator');
 const transitionEl = document.getElementById('transitionLabel');
 
-let videoDuration = 14; // default, will be updated on load
+let videoDuration = 8;
 
-// ── Overlay configuration with smooth fade ranges ──
-// Each overlay has: fadeIn start/end, hold, fadeOut start/end
-// At any scroll%, opacity is calculated from these ranges
-const overlays = [
-  { el: document.getElementById('overlay0'), fadeIn: [0, 8], hold: [8, 18], fadeOut: [18, 22], none: 'ARRIVAL' },
-  { el: document.getElementById('overlay1'), fadeIn: [18, 25], hold: [25, 38], fadeOut: [38, 42], none: 'MARKET' },
-  { el: document.getElementById('overlay2'), fadeIn: [50, 56], hold: [56, 72], fadeOut: [72, 78], none: 'ARCHIVE' },
-  { el: document.getElementById('overlay3'), fadeIn: [78, 84], hold: [84, 100], fadeOut: [100, 100], none: 'SIGNAL' },
+// ── Overlay config ──
+const overlayConfig = [
+  { el: document.getElementById('overlayDay'), fadeIn: [0, 8], hold: [8, 35], fadeOut: [35, 42] },
+  { el: document.getElementById('overlayNight'), fadeIn: [65, 72], hold: [72, 100], fadeOut: [100, 100] },
 ];
 
-// Transition zone: 38-55%
-const transitionZone = [38, 55];
-
-// Scene labels at different scroll ranges
 const sceneLabels = [
-  { range: [0, 38], label: 'OUTDOOR MARKET' },
-  { range: [38, 55], label: 'PASSAGE' },
-  { range: [55, 100], label: 'INTERIOR ARCHIVE' },
+  { range: [0, 35], label: 'GOLDEN HOUR' },
+  { range: [35, 65], label: 'PASSAGE' },
+  { range: [65, 100], label: 'NIGHT SIGNAL' },
 ];
 
-// ── Calculate smooth opacity from scroll percentage ──
-function smoothOpacity(pct, fadeIn, hold, fadeOut) {
-  const [fiS, fiE] = fadeIn;
-  const [hS, hE] = hold;
-  const [foS, foE] = fadeOut;
+// Transition zone: overlay-only label at 35-65%
+const transitionZone = [35, 65];
 
-  if (pct < fiS) return 0;
-  if (pct >= fiS && pct < fiE) {
-    return (pct - fiS) / (fiE - fiS); // fade in
-  }
-  if (pct >= hS && pct < hE) return 1; // hold
-  if (pct >= foS && pct < foE) {
-    return 1 - (pct - foS) / (foE - foS); // fade out
-  }
-  if (pct >= foE) return 0;
+function smoothOpacity(pct, fadeIn, hold, fadeOut) {
+  if (pct < fadeIn[0]) return 0;
+  if (pct >= fadeIn[0] && pct < fadeIn[1]) return (pct - fadeIn[0]) / (fadeIn[1] - fadeIn[0]);
+  if (pct >= hold[0] && pct < hold[1]) return 1;
+  if (pct >= fadeOut[0] && pct < fadeOut[1]) return 1 - (pct - fadeOut[0]) / (fadeOut[1] - fadeOut[0]);
+  if (pct >= fadeOut[1]) return 0;
   return 0;
 }
 
-// ── Style an overlay from its opacity value + GSAP polish ──
-function applyOverlay(el, opacity) {
-  if (!el) return;
-  // Use GSAP for smooth transform
-  gsap.set(el, { opacity: opacity, y: (1 - opacity) * 15 });
-}
-
-// ── Main scrub function ──
 function scrub() {
   const scrollTop = window.scrollY;
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
@@ -381,39 +298,36 @@ function scrub() {
 
   // Progress bar
   progressBar.style.width = pct + '%';
-  percentLabel.textContent = Math.round(pct) + '%';
 
   // Video scrub
   if (video.readyState >= 2 && videoDuration > 0) {
     const target = progress * videoDuration;
-    if (Math.abs(video.currentTime - target) > 0.03) {
+    if (Math.abs(video.currentTime - target) > 0.02) {
       video.currentTime = target;
     }
   }
 
   // Overlays
-  overlays.forEach(o => {
+  overlayConfig.forEach(o => {
     const op = smoothOpacity(pct, o.fadeIn, o.hold, o.fadeOut);
-    applyOverlay(o.el, op);
+    gsap.set(o.el, { opacity: op, y: (1 - op) * 12 });
   });
 
   // Transition label
-  const inTransition = pct >= transitionZone[0] && pct <= transitionZone[1];
-  let tlOpacity = 0;
-  if (inTransition) {
-    // Fade in, hold, fade out within the transition zone
-    const tMid = (transitionZone[0] + transitionZone[1]) / 2;
-    const tRange = (transitionZone[1] - transitionZone[0]) / 2;
-    tlOpacity = Math.max(0, 1 - Math.abs(pct - tMid) / tRange);
-    tlOpacity = Math.min(1, tlOpacity * 1.5);
+  const inZone = pct >= transitionZone[0] && pct <= transitionZone[1];
+  let tlOp = 0;
+  if (inZone) {
+    const mid = (transitionZone[0] + transitionZone[1]) / 2;
+    const rng = (transitionZone[1] - transitionZone[0]) / 2;
+    tlOp = Math.max(0, 1 - Math.abs(pct - mid) / rng) * 1.5;
   }
-  gsap.set(transitionEl, { opacity: tlOpacity, y: (1 - tlOpacity) * -10 });
+  gsap.set(transitionEl, { opacity: tlOp });
 
   // Scene indicator
   sceneLabel.textContent = sceneLabels.find(s => pct >= s.range[0] && pct <= s.range[1])?.label || '';
 }
 
-// ── Throttled scroll handler ──
+// ── Throttled scroll ──
 let ticking = false;
 window.addEventListener('scroll', () => {
   if (!ticking) {
@@ -423,42 +337,28 @@ window.addEventListener('scroll', () => {
 });
 window.addEventListener('resize', scrub);
 
-// ── Video loaded ──
+// ── Video events ──
 video.addEventListener('loadedmetadata', () => {
   videoDuration = video.duration || videoDuration;
-  console.log('Video duration:', videoDuration);
   video.classList.add('loaded');
   poster.classList.add('hidden');
   scrub();
 });
-video.addEventListener('error', () => {
-  console.log('Video load failed. Poster remains.');
-  poster.classList.remove('hidden');
-});
+video.addEventListener('error', () => poster.classList.remove('hidden'));
 
-// Try to set the video source — first try stitched, fallback to single
-function setVideoSource() {
-  // Try the stitched dual-scene video first
-  videoSrc.src = 'scroll-dual.mp4';
-  video.load();
-  // If stitched doesn't exist, the error handler will show the poster
-}
-setVideoSource();
-
-// ── GSAP entrance flourishes (one-time on first view) ──
-overlays.forEach((o, i) => {
-  if (!o.el) return;
+// ── GSAP entrances (one-time) ──
+document.querySelectorAll('.overlay').forEach(el => {
   ScrollTrigger.create({
-    trigger: document.querySelectorAll('.scroll-zone')[i * 2] || o.el,
+    trigger: el.closest('.scroll-zone') || el,
     start: 'top 85%',
     once: true,
     onEnter: () => {
-      const stamp = o.el.querySelector('.overlay-stamp');
-      const title = o.el.querySelector('.overlay-title');
-      const signal = o.el.querySelector('.overlay-signal');
-      if (title) gsap.from(title, { y: 25, opacity: 0, duration: 0.6, ease: 'power3.out' });
-      if (stamp) gsap.from(stamp, { scale: 0, rotation: -12, duration: 0.35, ease: 'back.out(2.5)' });
-      if (signal) gsap.from(signal, { scaleX: 0, duration: 0.5, transformOrigin: 'left center', ease: 'power2.out' });
+      const stamp = el.querySelector('.overlay-stamp');
+      const title = el.querySelector('.overlay-title');
+      const signal = el.querySelector('.overlay-signal');
+      if (title) gsap.from(title, { y: 20, opacity: 0, duration: 0.5, ease: 'power3.out' });
+      if (stamp) gsap.from(stamp, { scale: 0, rotation: -12, duration: 0.3, ease: 'back.out(2.5)' });
+      if (signal) gsap.from(signal, { scaleX: 0, duration: 0.4, transformOrigin: 'left center', ease: 'power2.out' });
     }
   });
 });
@@ -466,14 +366,13 @@ overlays.forEach((o, i) => {
 // ── Reduced motion ──
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   gsap.globalTimeline.clear();
-  document.querySelectorAll('.overlay-stamp, .overlay-title, .overlay-signal').forEach(el => {
+  document.querySelectorAll('.overlay-title, .overlay-stamp, .overlay-signal').forEach(el => {
     gsap.set(el, { clearProps: 'all' });
   });
 }
 
 scrub();
-console.log('MJM Scroll Cinema v2 loaded. Two scenes, smooth overlays.');
+console.log('Baobab Scroll Cinema v3 loaded.');
 </script>
-
 </body>
 </html>
